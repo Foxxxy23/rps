@@ -17,6 +17,9 @@ function computerPlay(){
     }
 
 function playRound(playerSelection, computerSelection){
+    if (isGameOver() === true){
+        return;
+    }
     updateChoices(playerSelection, computerSelection);
     winner = "";
         if(playerSelection === computerSelection){
@@ -74,8 +77,6 @@ function playRound(playerSelection, computerSelection){
     }
 }
 function game(){
-    playerScore = 0;
-    computerScore = 0;
     for (let i = 0; i < 1; i++) {
         console.log("Round " + (i + 1));
         computerSelection = computerPlay();
@@ -129,14 +130,17 @@ const restartBtn = document.getElementById('restartBtn')
 rockBtn.addEventListener("click", function(){
     playRound("rock", computerPlay());
     updateScore(winner);
+    isGameOver()
 });
 paperBtn.addEventListener("click", function(){
     playRound("paper", computerPlay());
     updateScore(winner);
+    isGameOver()
 });
 scissorsBtn.addEventListener("click", function(){
     playRound("scissors", computerPlay());
     updateScore(winner);
+    isGameOver()
 });
 
 function updateChoices(playerSelection, computerSelection) {
@@ -175,6 +179,21 @@ function updateScore(winner) {
     playerScorePara.textContent = `Player: ${playerScore}`
     computerScorePara.textContent = `Computer: ${computerScore}`
 }
+
+function isGameOver(){
+    if(computerScore === 5){
+        input.textContent = 'Computer is the champion!';
+        return true;
+    }
+    if(playerScore === 5){
+        input.textContent = 'Player is the champion!';
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 
 //game();
 //winner1();
