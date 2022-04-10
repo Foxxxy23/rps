@@ -1,3 +1,6 @@
+let playerScore = 0;
+let computerScore = 0;
+
 function computerPlay(){
     selection = "";
     selection = Math.floor(Math.random() * 101)
@@ -14,7 +17,8 @@ function computerPlay(){
     }
 
 function playRound(playerSelection, computerSelection){
-        winner = "";
+    updateChoices(playerSelection, computerSelection);
+    winner = "";
         if(playerSelection === computerSelection){
             winner = "Tie";
             console.log("Tie")
@@ -25,12 +29,14 @@ function playRound(playerSelection, computerSelection){
                 winner = "Computer";
                 console.log(computerSelection + " beats " + playerSelection)
                 console.log("Computer wins")
+                computerScore++;
                 return winner;
             }
             if(computerSelection === "scissors"){
                 winner = "Player";
                 console.log(playerSelection + " beats " + computerSelection)
                 console.log("Player wins")
+                playerScore++;
                 return winner;
             }
         }
@@ -39,12 +45,14 @@ function playRound(playerSelection, computerSelection){
                 winner = "Player";
                 console.log(playerSelection + " beats " + computerSelection)
                 console.log("Player wins")
+                playerScore++;
                 return winner;
             }
             if(computerSelection === "scissors"){
                 winner = "Computer";
                 console.log(computerSelection + " beats " + playerSelection)
                 console.log("Computer wins")
+                computerScore++;
                 return winner;
             }
         }
@@ -53,12 +61,14 @@ function playRound(playerSelection, computerSelection){
                 winner = "Player";
                 console.log(playerSelection + " beats " + computerSelection)
                 console.log("Player wins")
+                playerScore++;
                 return winner;
             }
             if(computerSelection === "rock"){
                 winner = "Computer";
                 console.log(computerSelection + " beats " + playerSelection)
                 console.log("Computer wins")
+                computerScore++;
                 return winner;
         }
     }
@@ -105,7 +115,7 @@ function winner1(){
 
 
 //UI
-const scoreInfo = document.getElementById('scoreInfo')
+const input = document.getElementById("input")
 
 const playerScorePara = document.getElementById('playerScore')
 const computerScorePara = document.getElementById('computerScore')
@@ -118,16 +128,54 @@ const restartBtn = document.getElementById('restartBtn')
 
 rockBtn.addEventListener("click", function(){
     playRound("rock", computerPlay());
+    updateScore(winner);
 });
 paperBtn.addEventListener("click", function(){
     playRound("paper", computerPlay());
+    updateScore(winner);
 });
 scissorsBtn.addEventListener("click", function(){
     playRound("scissors", computerPlay());
+    updateScore(winner);
 });
 
-    
+function updateChoices(playerSelection, computerSelection) {
+    switch (playerSelection) {
+      case 'rock':
+        playerSign.textContent = '✊'
+        break
+      case 'paper':
+        playerSign.textContent = '✋'
+        break
+      case 'scissors':
+        playerSign.textContent = '✌'
+        break
+    }
+    switch (computerSelection) {
+        case 'rock':
+          computerSign.textContent = '✊'
+          break
+        case 'paper':
+          computerSign.textContent = '✋'
+          break
+        case 'scissors':
+          computerSign.textContent = '✌'
+          break
+      }
+    }
+
+function updateScore(winner) {
+    if (winner === "Tie") {
+        input.textContent = "It's a tie!"
+     } else if (winner === 'Player') {
+        input.textContent = 'You won!'
+    } else if (winner=== 'Computer') {
+        input.textContent = 'You lost!'
+    }
+    playerScorePara.textContent = `Player: ${playerScore}`
+    computerScorePara.textContent = `Computer: ${computerScore}`
+}
+
 //game();
 //winner1();
 //console.log(totalWinner);
-
